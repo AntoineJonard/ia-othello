@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="othello.State"/>
+    <fullyQualifiedTypeName name="java.lang.Package"/>
+    <fullyQualifiedTypeName name="othello.Player"/>
+    <fullyQualifiedTypeName name="players.Player"/>
+    <fullyQualifiedTypeName name="othello.Frame"/>
+    <fullyQualifiedTypeName name="org.fusesource.jansi.AnsiConsole"/>
+    <fullyQualifiedTypeName name="org.fusesource.jansi.Ansi.Color"/>
+    <fullyQualifiedTypeName name="othello.Game"/>
+    <fullyQualifiedTypeName name="players.Human"/>
+</qualifiedTypeNameHistroy>

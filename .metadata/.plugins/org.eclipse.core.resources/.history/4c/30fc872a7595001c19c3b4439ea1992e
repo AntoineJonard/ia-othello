@@ -1,0 +1,10 @@
+package othello;
+
+public class Game {
+	
+	private final Frame[][] frame = new  Frame[8][8];
+	
+	private player1;
+	private player2;
+
+}

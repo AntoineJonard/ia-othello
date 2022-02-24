@@ -1,0 +1,20 @@
+package othello;
+
+public class Frame {
+	
+	private State state;
+
+	public Frame() {
+		super();
+		this.state = State.EMPTY;
+	}
+	
+	public void setRed() {
+		this.state = State.RED;
+	}
+	
+	public void setBlack() {
+		this.state = State.BLACK;
+	}
+
+}

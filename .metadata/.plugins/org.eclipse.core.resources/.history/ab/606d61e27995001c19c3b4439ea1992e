@@ -1,0 +1,61 @@
+package othello;
+
+import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
+
+import players.Player;
+
+public class Game {
+	
+	private final Frame[][] frame = new  Frame[8][8];
+	
+	private Player black;
+	private Player red;
+	
+	public Game(Player player1, Player player2) {
+		super();
+		
+		for (int i = 0 ; i < 8 ; i++) {
+			for (int p = 0 ; p < 8 ; p++) {
+				frame[i][p] = new Frame();
+			}
+		}
+		
+		frame[3][3].setRed();
+		frame[4][4].setRed();
+		frame[3][4].setBlack();
+		frame[4][3].setBlack();
+		
+		this.black = player1;
+		this.red = player2;
+	}
+	
+	public void display() {
+		
+		AnsiConsole.systemInstall();
+		
+		for (int i = 0 ; i < 8 ; i++) {
+			for (int p = 0 ; p < 8 ; p++) {
+				Color color = null;
+				switch (frame[i][p].getState()) {
+				case BLACK:
+					color = BLACK;
+					break;
+				case RED:
+					color = RED;
+					break;
+				case EMPTY:
+					color = WHITE;
+					break;
+				}
+				System.out.print("|");
+				System.out.print(ansi().eraseScreen().bg(color).a(" ").reset());
+				if (p >= 7)
+					System.out.println("|");
+			}
+		}
+	}
+	
+
+}

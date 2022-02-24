@@ -1,0 +1,9 @@
+package othello;
+
+public class Plateau {
+	
+	private final static Frame[][] frame = new  Frame[8][8];
+	
+	
+
+}

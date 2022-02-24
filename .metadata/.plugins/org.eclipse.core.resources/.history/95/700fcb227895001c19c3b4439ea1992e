@@ -1,0 +1,10 @@
+package othello;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("\u001B[31m"+" B"+"\u001B[0m");
+	}
+
+}
