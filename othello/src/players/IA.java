@@ -1,5 +1,7 @@
 package players;
 
+import othello.Frame;
+
 public class IA extends Player {
 
 	private final static int[][] tacticalValues = {
@@ -12,6 +14,12 @@ public class IA extends Player {
 			{-150, -250, 0, 0, 0, 0, -250, -150},
 			{500, -150, 30, 10, 10, 30, -150, 500},
 	};
+
+	@Override
+	public Frame play() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

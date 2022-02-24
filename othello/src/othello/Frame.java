@@ -30,7 +30,7 @@ public class Frame {
 	public void reverse() {
 		if (state==State.BLACK)
 			setRed();
-		if (state==State.RED)
+		else if (state==State.RED)
 			setBlack();
 	}
 

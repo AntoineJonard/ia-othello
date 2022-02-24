@@ -10,7 +10,7 @@ public class Test {
 		Human p2 = new Human();
 		
 		Game game = new Game(p1, p2);
-		game.display();
+		game.start();
 
 	}
 

@@ -83,6 +83,9 @@ public class Game {
 		
 		while(true) {
 			Frame blackPlayed = black.play();
+			blackPlayed.setBlack();
+			
+			updateFramesWith(blackPlayed);
 			
 			redPlayables.remove(blackPlayed);
 			blackPlayables.remove(blackPlayed);
@@ -91,7 +94,14 @@ public class Game {
 				if (f.isEmpty())
 					redPlayables.add(f);
 			
+			reverse(blackPlayed);
+			
+			display();
+			
 			Frame redPlayed = red.play();
+			redPlayed.setRed();
+			
+			updateFramesWith(redPlayed);
 			
 			redPlayables.remove(redPlayed);
 			blackPlayables.remove(redPlayed);
@@ -99,6 +109,8 @@ public class Game {
 			for (Frame f : getNeighbors(redPlayed))
 				if (f.isEmpty())
 					redPlayables.add(f);
+			
+			reverse(redPlayed);
 			
 			display();
 			round++;
@@ -112,11 +124,11 @@ public class Game {
 		
 		if (i-1 > 0)
 			neighbors.add(frames[i-1][p]);
-		if (i+1 < 8)
+		if (i+1 < 7)
 			neighbors.add(frames[i+1][p]);
 		if (p-1 > 0)
 			neighbors.add(frames[i][p-1]);
-		if (p+1 < 8)
+		if (p+1 < 7)
 			neighbors.add(frames[i][p+1]);
 		
 		return neighbors;
@@ -140,9 +152,9 @@ public class Game {
 		// lines
 		
 		int fromi = from.getI();
-		int fromp = from.getI();
+		int fromp = from.getP();
 		int toi = from.getI();
-		int top = from.getI();
+		int top = from.getP();
 		
 		for (int it = 0 ; it < from.getI(); it++) {
 			if (frames[it][from.getP()].getState()==trigger) {
@@ -152,7 +164,7 @@ public class Game {
 				
 		}
 		
-		for (int it = 8 ; it > from.getI(); it--) {
+		for (int it = 7 ; it > from.getI(); it--) {
 			if (frames[it][from.getP()].getState()==trigger) {
 				toi = it;
 				break;
@@ -160,22 +172,22 @@ public class Game {
 				
 		}
 		
-		for (int it = 0 ; it < from.getI(); it++) {
-			if (frames[it][from.getP()].getState()==trigger) {
+		for (int it = 0 ; it < from.getP(); it++) {
+			if (frames[from.getI()][it].getState()==trigger) {
 				fromp = it;
 				break;
 			}
 				
 		}
 		
-		for (int it = 8 ; it > from.getI(); it--) {
-			if (frames[it][from.getP()].getState()==trigger) {
+		for (int it = 7 ; it > from.getP(); it--) {
+			if (frames[from.getI()][it].getState()==trigger) {
 				top = it;
 				break;
 			}
 		}
 		
-		for (int it = fromi + 1 ; it < toi && fromi-toi>-1 ; it ++) {
+		for (int it = fromi + 1 ; it < toi && toi-fromi>1 ; it ++) {
 			if (frames[it][from.getP()].getState() != trigger) {
 				frames[it][from.getP()].reverse();
 				List<Frame> neighbors = getNeighbors(frames[it][from.getP()]);
@@ -184,7 +196,7 @@ public class Game {
 			}
 		}
 		
-		for (int it = fromp + 1 ; it < top && fromp-top>-1 ; it ++) {
+		for (int it = fromp + 1 ; it < top && top-fromp>1 ; it ++) {
 			if (frames[from.getI()][it].getState() != trigger) {
 				frames[from.getI()][it].reverse();
 				List<Frame> neighbors = getNeighbors(frames[from.getI()][it]);
@@ -221,7 +233,7 @@ public class Game {
 			}
 		}
 		
-		for (int it1 = from.getI()+from.getP()<7?0:-7+from.getI()+from.getP(), it2 = from.getI()+from.getP()<7?from.getI()+from.getP():7 ; it1 < from.getI() ; it1--, it2--) {
+		for (int it1 = from.getI()+from.getP()<7?0:-7+from.getI()+from.getP(), it2 = from.getI()+from.getP()<7?from.getI()+from.getP():7 ; it1 > from.getI() ; it1--, it2--) {
 			if (frames[it1][it2].getState() == trigger) {
 				topi = frames[it1][it2];
 				break;
@@ -245,5 +257,12 @@ public class Game {
 				neighbors.forEach(neighbor -> opponentPlayables.add(neighbor));
 			}	
 		}
+	}
+	
+	public void updateFramesWith(Frame from) {
+		if (from.getState() == State.BLACK)
+			frames[from.getI()][from.getP()].setBlack();
+		else
+			frames[from.getI()][from.getP()].setRed();
 	}
 }
