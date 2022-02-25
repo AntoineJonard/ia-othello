@@ -1,9 +1,0 @@
-package othello;
-
-public class Game {
-	
-	private final static Frame[][] frame = new  Frame[8][8];
-	
-	
-
-}

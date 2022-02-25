@@ -62,4 +62,11 @@ public class Frame {
 		Frame other = (Frame) obj;
 		return i == other.i && p == other.p && state == other.state;
 	}
+
+	@Override
+	public String toString() {
+		return "("+p+","+i+") : "+state;
+	}
+	
+	
 }

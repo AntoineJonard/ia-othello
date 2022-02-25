@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import players.Player;
+import players.Side;
 
 public class Game {
 	
@@ -39,29 +40,41 @@ public class Game {
 		frames[4][3].setBlack();
 		
 		this.black = player1;
-		player1.setGame(this);
+		player1.setGame(this,Side.BLACK);
 		this.red = player2;
-		player2.setGame(this);
+		player2.setGame(this, Side.WHITE);
 	}
 	
+	public HashSet<Frame> getBlackPlayables() {
+		return blackPlayables;
+	}
+
+	public HashSet<Frame> getRedPlayables() {
+		return redPlayables;
+	}
+
 	public void display() {	
 		System.out.println("round "+round);
 		for (int i = 0 ; i < 8 ; i++) {
 			for (int p = 0 ; p < 8 ; p++) {
 				String color = null;
+				String symbol = null;
 				switch (frames[i][p].getState()) {
 				case BLACK:
 					color = BLACK;
+					symbol = "X";
 					break;
 				case RED:
 					color = RED;
+					symbol = "O";
 					break;
 				case EMPTY:
 					color = WHITE;
+					symbol = " ";
 					break;
 				}
 				System.out.print("|");
-				System.out.print(color + "🟨"+RESET);
+				System.out.print(color +symbol+RESET);
 				System.out.flush();
 				if (p >= 7)
 					System.out.println("|");

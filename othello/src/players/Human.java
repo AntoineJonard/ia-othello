@@ -16,6 +16,10 @@ public class Human extends Player{
 
 	@Override
 	public Frame play() {
+		System.out.println("Possibilités :");
+		for (Frame f : getSide() == Side.BLACK ? getGame().getBlackPlayables():getGame().getRedPlayables()) {
+			System.out.print(f.toString()+" ; ");
+		}
 		System.out.println("Tour de "+name);
 		System.out.println("Veuillez entrer l'abscisse du jeton :");
 		int p = sc.nextInt();
