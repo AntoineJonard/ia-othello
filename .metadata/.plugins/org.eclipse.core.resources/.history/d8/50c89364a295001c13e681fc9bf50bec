@@ -1,0 +1,21 @@
+package players;
+
+import java.util.Scanner;
+
+import othello.Frame;
+
+public class Human extends Player{
+	
+	private final Scanner sc = new Scanner(System.in);
+	
+	public Human() {
+		System.out.println("Veuillez entrer votre nom :");
+	}
+
+	@Override
+	public Frame play() {
+		
+		System.out.println("Joueur ");
+	}
+
+}

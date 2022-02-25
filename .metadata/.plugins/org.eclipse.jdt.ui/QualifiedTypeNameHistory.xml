@@ -3,10 +3,18 @@
     <fullyQualifiedTypeName name="othello.State"/>
     <fullyQualifiedTypeName name="java.lang.Package"/>
     <fullyQualifiedTypeName name="othello.Player"/>
-    <fullyQualifiedTypeName name="players.Player"/>
-    <fullyQualifiedTypeName name="othello.Frame"/>
     <fullyQualifiedTypeName name="org.fusesource.jansi.AnsiConsole"/>
     <fullyQualifiedTypeName name="org.fusesource.jansi.Ansi.Color"/>
-    <fullyQualifiedTypeName name="othello.Game"/>
     <fullyQualifiedTypeName name="players.Human"/>
+    <fullyQualifiedTypeName name="players.Player"/>
+    <fullyQualifiedTypeName name="othello.Game"/>
+    <fullyQualifiedTypeName name="java.util.Hashtable"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="org.graalvm.compiler.asm.amd64.AMD64Address.Scale"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="othello.Frame"/>
 </qualifiedTypeNameHistroy>

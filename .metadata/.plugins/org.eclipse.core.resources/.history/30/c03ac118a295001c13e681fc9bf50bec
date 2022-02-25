@@ -1,0 +1,13 @@
+package players;
+
+import othello.Frame;
+
+public class Human extends Player{
+
+	@Override
+	public Frame play() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,14 @@
+package players;
+
+import java.util.Scanner;
+
+import othello.Frame;
+
+public class Human extends Player{
+
+	@Override
+	public Frame play() {
+		Scanner sc = new Scanner(System.in);
+	}
+
+}
