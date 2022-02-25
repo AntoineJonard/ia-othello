@@ -8,5 +8,7 @@
     <fullyQualifiedTypeName name="org.fusesource.jansi.AnsiConsole"/>
     <fullyQualifiedTypeName name="org.fusesource.jansi.Ansi.Color"/>
     <fullyQualifiedTypeName name="othello.Game"/>
+    <fullyQualifiedTypeName name="players.Side"/>
     <fullyQualifiedTypeName name="players.Human"/>
+    <fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthOptionPaneUI"/>
 </qualifiedTypeNameHistroy>

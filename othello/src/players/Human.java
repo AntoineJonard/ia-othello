@@ -16,6 +16,7 @@ public class Human extends Player{
 
 	@Override
 	public Frame play() {
+		System.out.println("Tour de "+getName());
 		System.out.println("Possibilités :");
 		for (Frame f : getSide() == Side.BLACK ? getGame().getBlackPlayables():getGame().getRedPlayables()) {
 			System.out.print(f.toString()+" ; ");
