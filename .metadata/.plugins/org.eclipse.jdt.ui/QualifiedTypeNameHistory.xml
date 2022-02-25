@@ -5,6 +5,7 @@
     <fullyQualifiedTypeName name="othello.Player"/>
     <fullyQualifiedTypeName name="org.fusesource.jansi.AnsiConsole"/>
     <fullyQualifiedTypeName name="org.fusesource.jansi.Ansi.Color"/>
+<<<<<<< HEAD
     <fullyQualifiedTypeName name="players.Human"/>
     <fullyQualifiedTypeName name="players.Player"/>
     <fullyQualifiedTypeName name="othello.Game"/>
@@ -17,4 +18,10 @@
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="othello.Frame"/>
+=======
+    <fullyQualifiedTypeName name="othello.Game"/>
+    <fullyQualifiedTypeName name="players.Side"/>
+    <fullyQualifiedTypeName name="players.Human"/>
+    <fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthOptionPaneUI"/>
+>>>>>>> f7a8b63554cead7c67763393705465a91d609347
 </qualifiedTypeNameHistroy>

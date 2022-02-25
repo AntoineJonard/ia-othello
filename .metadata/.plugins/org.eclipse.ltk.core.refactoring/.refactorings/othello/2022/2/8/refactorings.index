@@ -19,3 +19,5 @@
 1645720494325	Rename local variable 'i'
 1645726956793	Rename field 'redPlayable'
 1645726963930	Rename field 'blackPlayable'
+1645811814402	Rename field 'blackPlayables'
+1645811826938	Rename field 'redPlayables'
