@@ -21,3 +21,15 @@
 1645726963930	Rename field 'blackPlayable'
 1645811814402	Rename field 'blackPlayables'
 1645811826938	Rename field 'redPlayables'
+1645835449544	Extract method 'extracted'
+1645835503725	Rename method 'extracted'
+1645835527539	Extract method 'playred'
+1645835544286	Extract method 'initGame'
+1645835558353	Rename method 'playred'
+1645876883811	Copy package
+1645876890684	Delete elements
+1645878425045	Delete element
+1645878428208	Delete element
+1645884852986	Delete element
+1645885087220	Rename local variable 'minChild'
+1645885854257	Rename type 'Test'

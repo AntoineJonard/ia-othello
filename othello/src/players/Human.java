@@ -20,6 +20,10 @@ public class Human extends Player{
 		System.out.println("Tour de "+getName());
 		System.out.println("Possibilités :");
 		List<Frame> playables = getGame().displayPlayables(getSide());
+		if (playables.isEmpty()) {
+			System.out.println("Aucun coup n'est possible ! Tour passé");
+			return null;
+		}
 		System.out.println("Tour de "+name);
 		System.out.println("Veuillez entrer le coup que vous voulez jouer :");
 		String p = sc.nextLine();

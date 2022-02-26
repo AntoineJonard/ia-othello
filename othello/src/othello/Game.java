@@ -1,6 +1,7 @@
 package othello;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 import players.Player;
 import players.Side;
 
-public class Game {
+public class Game{
 	
     public static final String RESET = "\033[0m";  		// Text Reset
     public static final String BLACK = "\033[0;30m";   	// BLACK
@@ -18,16 +19,13 @@ public class Game {
 	
 	private final Frame[][] frames = new  Frame[8][8];
 	
-	private Player black;
-	private Player red;
-	
-	private int round = 0;
-	private int nbFreeFrame = 64;
+	private int nbRedFrame = 0;
+	private int nbBlackFrame = 0;
 	
 	private HashSet<Frame> blackPlayablesPos = new HashSet<>();
 	private HashSet<Frame> redPlayablesPos = new HashSet<>();
 	
-	public Game(Player player1, Player player2) {
+	public Game() {
 		super();
 		
 		for (int i = 0 ; i < 8 ; i++) {
@@ -36,16 +34,19 @@ public class Game {
 			}
 		}
 		
-		frames[3][3].setRed();
-		frames[4][4].setRed();
-		frames[3][4].setBlack();
-		frames[4][3].setBlack();
-		
-		this.black = player1;
-		player1.setGame(this,Side.BLACK);
-		this.red = player2;
-		player2.setGame(this, Side.WHITE);
+		initGame();
 	}
+	
+	
+	public Game(Game from) {
+		blackPlayablesPos = (HashSet<Frame>) from.blackPlayablesPos.clone();
+		redPlayablesPos = (HashSet<Frame>) from.redPlayablesPos.clone();
+		
+		for (int i = 0 ; i < 8 ; i++) {
+			frames[i] = Arrays.copyOf(from.frames[i], from.frames[i].length);
+		}
+	}
+	
 	
 	public List<Frame> getBlackPlayables() {
 		return  blackPlayablesPos.stream().filter(f -> isPlayable(f, State.BLACK)).collect(Collectors.toList());
@@ -54,9 +55,20 @@ public class Game {
 	public List<Frame> getRedPlayables() {
 		return redPlayablesPos.stream().filter(f -> isPlayable(f, State.RED)).collect(Collectors.toList());
 	}
+	
+	public List<Frame> getSidePlayable(Side side){
+		return side == Side.BLACK ? getBlackPlayables():getRedPlayables();
+	}
+
+	public int getNbRedFrame() {
+		return nbRedFrame;
+	}
+
+	public int getNbBlackFrame() {
+		return nbBlackFrame;
+	}
 
 	public void display() {	
-		System.out.println("round "+round);
 		for (int i = 0 ; i < 8 ; i++) {
 			for (int p = 0 ; p < 8 ; p++) {
 				String color = null;
@@ -90,7 +102,6 @@ public class Game {
 		List<Frame> orderedPlayables = new ArrayList();
 		int cpt = 1;
 		
-		System.out.println("round "+round);
 		for (int i = 0 ; i < 8 ; i++) {
 			for (int p = 0 ; p < 8 ; p++) {
 				String color = null;
@@ -129,8 +140,12 @@ public class Game {
 		
 		return orderedPlayables;
 	}
-	
-	public void start() {
+
+	private void initGame() {
+		frames[3][3].setRed();
+		frames[4][4].setRed();
+		frames[3][4].setBlack();
+		frames[4][3].setBlack();
 		
 		redPlayablesPos.add(frames[4][2]);
 		redPlayablesPos.add(frames[5][3]);
@@ -141,39 +156,49 @@ public class Game {
 		blackPlayablesPos.add(frames[3][2]);
 		blackPlayablesPos.add(frames[4][5]);
 		blackPlayablesPos.add(frames[5][4]);
-				
-		while(!gameEnd()) {
-			
-			Frame blackPlayed = black.play();
-			
-			redPlayablesPos.remove(blackPlayed);
-			blackPlayablesPos.remove(blackPlayed);
-			
-			blackPlayed.setBlack();
-			
-			updateFramesWith(blackPlayed);
-			
-			reverse(blackPlayed);
-			
-			for (Frame f : getFreeNeighbors(blackPlayed))
-				addToRedPlayables(f);
-						
-			Frame redPlayed = red.play();
-			
-			redPlayablesPos.remove(redPlayed);
-			blackPlayablesPos.remove(redPlayed);
-			
-			redPlayed.setRed();
-			
-			updateFramesWith(redPlayed);
-						
-			reverse(redPlayed);
+	}
 
-			for (Frame f : getFreeNeighbors(redPlayed))
-				addToBackPlayables(f);
+	public void playRed(Frame framePlayed) {
+		if (framePlayed != null) {
+			nbRedFrame++;
+			
+			redPlayablesPos.remove(framePlayed);
+			blackPlayablesPos.remove(framePlayed);
+			
+			framePlayed.setRed();
+			
+			updateFramesWith(framePlayed);
 						
-			round++;
+			reverse(framePlayed);
+
+			for (Frame f : getFreeNeighbors(framePlayed))
+				addToBackPlayables(f); 			
 		}
+	}
+
+	public void playBlack(Frame framePlayed) {
+		if (framePlayed != null) {
+			nbBlackFrame++;
+			
+			redPlayablesPos.remove(framePlayed);
+			blackPlayablesPos.remove(framePlayed);
+			
+			framePlayed.setBlack();
+			
+			updateFramesWith(framePlayed);
+			
+			reverse(framePlayed);
+			
+			for (Frame f : getFreeNeighbors(framePlayed))
+				addToRedPlayables(f);
+		}
+	}
+	
+	public void playSide(Side s, Frame framePlayed) {
+		if (s == Side.BLACK)
+			playBlack(framePlayed);
+		else
+			playRed(framePlayed);
 	}
 
 	private void addToBackPlayables(Frame f) {
@@ -212,7 +237,6 @@ public class Game {
 				neighbors.add(f);
 		}
 			
-		
 		if (p+1 < 8) {
 			f = frames[i][p+1];
 			if (f.isEmpty())
@@ -272,7 +296,7 @@ public class Game {
 		int limiting = iinfp ? frame.getI() : frame.getP();
 		int excess = iinfp ? frame.getP(): frame.getI();
 		
-		if (frame.getI()+1 < 8 && frame.getP() < 8 && frames[frame.getI()+1][frame.getP()+1].getState()==invState)
+		if (frame.getI()+1 < 8 && frame.getP()+1 < 8 && frames[frame.getI()+1][frame.getP()+1].getState()==invState)
 			for (int ip = 2 ; excess + ip < 8; ip ++) {
 				tmp = frames[frame.getI()+ip][frame.getP()+ip].getState();
 				if (tmp == endpoint)
@@ -281,7 +305,7 @@ public class Game {
 					break;
 			}
 		
-		if (frame.getI()-1 >= 0 && frame.getI()-1>=0 && frames[frame.getI()-1][frame.getP()-1].getState()==invState)
+		if (frame.getI()-1 >= 0 && frame.getP()-1>=0 && frames[frame.getI()-1][frame.getP()-1].getState()==invState)
 			for (int ip = 2 ; limiting -ip >= 0 ; ip ++) {
 				tmp = frames[frame.getI()-ip][frame.getP()-ip].getState();
 				if (tmp == endpoint)
@@ -299,7 +323,7 @@ public class Game {
 					break;
 			}
 		
-		if (frame.getI()-1 < 8 && frame.getP()+1 < 8 && frames[frame.getI()-1][frame.getP()+1].getState()==invState)
+		if (frame.getI()-1 >=0 && frame.getP()+1 < 8 && frames[frame.getI()-1][frame.getP()+1].getState()==invState)
 			for (int ip = 2 ; frame.getI()-ip >= 0 && frame.getP()+ip < 8 ; ip ++) {
 				tmp = frames[frame.getI()-ip][frame.getP()+ip].getState();
 				if (tmp == endpoint)
@@ -454,6 +478,6 @@ public class Game {
 	}
 	
 	public boolean gameEnd() {
-		return getBlackPlayables().isEmpty() && getRedPlayables().isEmpty() || nbFreeFrame == 0;
+		return getBlackPlayables().isEmpty() && getRedPlayables().isEmpty() || nbRedFrame+nbBlackFrame >= 64;
 	}
 }
