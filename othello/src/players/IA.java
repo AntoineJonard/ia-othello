@@ -7,6 +7,7 @@ import ia.Node;
 import ia.Type;
 import othello.Frame;
 import othello.Game;
+import othello.State;
 
 public abstract class IA extends Player {
 
@@ -37,7 +38,7 @@ public abstract class IA extends Player {
 	@Override
 	public Frame play() {
 
-		List<Frame> playables = getGame().displayPlayables(getSide());
+		List<Frame> playables = getSide() == Side.BLACK ? getGame().getBlackPlayables() : getGame().getRedPlayables();;
 		List<Node> nodes = new ArrayList<>();
 		
 		if (playables.isEmpty()) {
@@ -46,12 +47,12 @@ public abstract class IA extends Player {
 		}
 		
 		for (Frame f : playables) {
-			nodes.add(new Node(f, 0));
+			nodes.add(new Node(new Frame(f), 0));
 		}
 		
 		Node max = max(nodes,getGame());
 		
-		return max.getF();
+		return new Frame(State.EMPTY,max.getF().getI(),max.getF().getP());
 	}
 	
 	private Node min(List<Node> nodes, Game game) {
@@ -61,12 +62,12 @@ public abstract class IA extends Player {
 			if (n.getDepth() >= maxDepth) {
 				n.setValue(computeHeuristique(n, null));
 			}else {
-				Game fictive = new Game(getGame());
+				Game fictive = new Game(game);
 				
 				fictive.playSide(getOpponentSide(), n.getF());
 								
 				for (Frame f : fictive.getSidePlayable(getSide())) {
-					n.getChilds().add(new Node(f,n.getDepth()+1));
+					n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
 				}
 				
 				if (n.getChilds().isEmpty()) {
@@ -90,12 +91,12 @@ public abstract class IA extends Player {
 			if (n.getDepth() >= maxDepth) {
 				n.setValue(computeHeuristique(n, null));
 			}else {
-				Game fictive = new Game(getGame());
+				Game fictive = new Game(game);
 				
 				fictive.playSide(getSide(), n.getF());
 								
 				for (Frame f : fictive.getSidePlayable(getOpponentSide())) {
-					n.getChilds().add(new Node(f,n.getDepth()+1));
+					n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
 				}
 				
 				if (n.getChilds().isEmpty()) {

@@ -1,12 +1,9 @@
 package othello;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import players.Player;
 import players.Side;
 
 public class Game{
@@ -22,8 +19,8 @@ public class Game{
 	private int nbRedFrame = 0;
 	private int nbBlackFrame = 0;
 	
-	private HashSet<Frame> blackPlayablesPos = new HashSet<>();
-	private HashSet<Frame> redPlayablesPos = new HashSet<>();
+	private List<Frame> blackPlayablesPos = new ArrayList();
+	private List<Frame> redPlayablesPos = new ArrayList();
 	
 	public Game() {
 		super();
@@ -39,11 +36,14 @@ public class Game{
 	
 	
 	public Game(Game from) {
-		blackPlayablesPos = (HashSet<Frame>) from.blackPlayablesPos.clone();
-		redPlayablesPos = (HashSet<Frame>) from.redPlayablesPos.clone();
+		
+		from.blackPlayablesPos.forEach(f -> blackPlayablesPos.add(new Frame(f)));
+		from.redPlayablesPos.forEach(f -> redPlayablesPos.add(new Frame(f)));
 		
 		for (int i = 0 ; i < 8 ; i++) {
-			frames[i] = Arrays.copyOf(from.frames[i], from.frames[i].length);
+			for (int p = 0 ; p < 8 ; p++) {
+				frames[i][p] = new Frame(from.frames[i][p]);
+			}
 		}
 	}
 	
@@ -202,15 +202,18 @@ public class Game{
 	}
 
 	private void addToBackPlayables(Frame f) {
-		blackPlayablesPos.add(f);
+		if (!blackPlayablesPos.contains(f))
+			blackPlayablesPos.add(f);
 	}
 
 	private void addToRedPlayables(Frame f) {
-		redPlayablesPos.add(f);
+		if (!redPlayablesPos.contains(f))
+			redPlayablesPos.add(f);
 	}
 	
-	private void addToPlayables(Frame f, HashSet<Frame> playables) {
-		playables.add(f);
+	private void addToPlayables(Frame f, List<Frame> playables) {
+		if (!playables.contains(f))
+			playables.add(f);
 	}
 	
 	public List<Frame> getFreeNeighbors(Frame centralFrame){
@@ -339,8 +342,8 @@ public class Game{
 		
 		State trigger = from.getState();
 		
-		HashSet<Frame> opponentPlayables;
-		HashSet<Frame> myPlayables;
+		List<Frame> opponentPlayables;
+		List<Frame> myPlayables;
 		
 		if (trigger == State.BLACK) {
 			myPlayables = blackPlayablesPos;
