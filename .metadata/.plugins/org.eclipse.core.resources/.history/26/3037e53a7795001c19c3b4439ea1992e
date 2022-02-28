@@ -1,7 +1,0 @@
-package othello;
-
-public enum State {
-	EMPTY,
-	RE3D,
-	BLACK;
-}

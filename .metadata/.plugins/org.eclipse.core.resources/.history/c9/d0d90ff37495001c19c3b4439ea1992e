@@ -1,7 +1,0 @@
-package othello;
-
-import players.Player;
-
-public class Human extends Player{
-
-}
