@@ -15,6 +15,19 @@ public class Frame {
 		this.p=p;
 	}
 	
+	public Frame(State state, int i, int p) {
+		super();
+		this.state = state;
+		this.i = i;
+		this.p = p;
+	}
+	
+	public Frame(Frame from) {
+		this.state = from.state;
+		this.i=from.i;
+		this.p=from.p;
+	}
+
 	public boolean isEmpty() {
 		return state == State.EMPTY;
 	}
@@ -44,11 +57,6 @@ public class Frame {
 
 	public int getP() {
 		return p;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(i, p, state);
 	}
 
 	@Override
