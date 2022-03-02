@@ -10,8 +10,8 @@ public class TestIA {
 		
 		int round = 1;
 		
-		Player p1 = new PositionnelIA(3);
-		Player p2 = new PositionnelIA(3);
+		Player p1 = new PositionnelIA(7);
+		Player p2 = new PositionnelIA(7);
 		
 		Game game = new Game();
 		
