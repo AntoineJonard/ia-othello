@@ -33,3 +33,6 @@
 1645884852986	Delete element
 1645885087220	Rename local variable 'minChild'
 1645885854257	Rename type 'Test'
+1645994060052	Rename local variable 'f'
+1645995033393	Change method 'computeHeuristique'
+1645995158736	Change method 'computeHeuristique'

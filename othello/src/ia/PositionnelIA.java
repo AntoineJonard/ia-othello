@@ -1,5 +1,6 @@
 package ia;
 
+import othello.Game;
 import players.IA;
 
 public class PositionnelIA extends IA {
@@ -10,8 +11,8 @@ public class PositionnelIA extends IA {
 	}
 
 	@Override
-	public int computeHeuristique(Node current, Node minChild) {
-		return tacticalValues[current.getF().getI()][current.getF().getP()] + (minChild != null ? minChild.getValue():0);
+	public int computeHeuristique(Node current, Game game) {
+		return tacticalValues[current.getF().getI()][current.getF().getP()];
 	}
 
 }

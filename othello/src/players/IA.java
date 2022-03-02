@@ -60,7 +60,7 @@ public abstract class IA extends Player {
 		for (Node n : nodes) {
 
 			if (n.getDepth() >= maxDepth) {
-				n.setValue(computeHeuristique(n, null));
+				n.setValue(computeHeuristique(n, game));
 			}else {
 				Game fictive = new Game(game);
 				
@@ -71,11 +71,11 @@ public abstract class IA extends Player {
 				}
 				
 				if (n.getChilds().isEmpty()) {
-					n.setValue(computeHeuristique(n, null));
+					n.setValue(computeHeuristique(n, fictive));
 				}else {
 					Node max = max(n.getChilds(),fictive);
 					
-					n.setValue(computeHeuristique(n, max));
+					n.setValue(computeHeuristique(n, fictive)+max.getValue());
 				}
 			}
 
@@ -89,7 +89,7 @@ public abstract class IA extends Player {
 		for (Node n : nodes) {
 				
 			if (n.getDepth() >= maxDepth) {
-				n.setValue(computeHeuristique(n, null));
+				n.setValue(computeHeuristique(n, game));
 			}else {
 				Game fictive = new Game(game);
 				
@@ -100,11 +100,11 @@ public abstract class IA extends Player {
 				}
 				
 				if (n.getChilds().isEmpty()) {
-					n.setValue(computeHeuristique(n, null));
+					n.setValue(computeHeuristique(n, fictive));
 				}else {
 					Node min = min(n.getChilds(),fictive);
 					
-					n.setValue(computeHeuristique(n, min));
+					n.setValue(computeHeuristique(n, fictive)+min.getValue());
 				}
 			}
 				
@@ -113,5 +113,5 @@ public abstract class IA extends Player {
 		return nodes.stream().max((n1, n2) -> n1.getValue() - n2.getValue()).get();
 	}
 	
-	public abstract int computeHeuristique(Node current, Node child);
+	public abstract int computeHeuristique(Node current, Game game);
 }

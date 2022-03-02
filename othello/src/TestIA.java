@@ -1,3 +1,6 @@
+import ia.AbosuluIA;
+import ia.MixteIA;
+import ia.MobiliteIA;
 import ia.PositionnelIA;
 import othello.Frame;
 import othello.Game;
@@ -10,8 +13,8 @@ public class TestIA {
 		
 		int round = 1;
 		
-		Player p1 = new PositionnelIA(3);
-		Player p2 = new PositionnelIA(3);
+		Player p1 = new MobiliteIA(4);
+		Player p2 = new AbosuluIA(4);
 		
 		Game game = new Game();
 		

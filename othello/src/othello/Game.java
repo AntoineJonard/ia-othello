@@ -3,6 +3,7 @@ package othello;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import players.Side;
 
@@ -18,6 +19,8 @@ public class Game{
 	
 	private int nbRedFrame = 0;
 	private int nbBlackFrame = 0;
+	
+	private int nbPlays = 0;
 	
 	private List<Frame> blackPlayablesPos = new ArrayList();
 	private List<Frame> redPlayablesPos = new ArrayList();
@@ -39,6 +42,10 @@ public class Game{
 		
 		from.blackPlayablesPos.forEach(f -> blackPlayablesPos.add(new Frame(f)));
 		from.redPlayablesPos.forEach(f -> redPlayablesPos.add(new Frame(f)));
+		
+		nbPlays = from.nbPlays;
+		nbRedFrame = from.nbRedFrame;
+		nbBlackFrame = from.nbBlackFrame;
 		
 		for (int i = 0 ; i < 8 ; i++) {
 			for (int p = 0 ; p < 8 ; p++) {
@@ -66,6 +73,10 @@ public class Game{
 
 	public int getNbBlackFrame() {
 		return nbBlackFrame;
+	}
+
+	public int getNbPlays() {
+		return nbPlays;
 	}
 
 	public void display() {	
@@ -147,6 +158,9 @@ public class Game{
 		frames[3][4].setBlack();
 		frames[4][3].setBlack();
 		
+		nbBlackFrame = 2;
+		nbRedFrame = 2;
+		
 		redPlayablesPos.add(frames[4][2]);
 		redPlayablesPos.add(frames[5][3]);
 		redPlayablesPos.add(frames[2][4]);
@@ -160,6 +174,7 @@ public class Game{
 
 	public void playRed(Frame framePlayed) {
 		if (framePlayed != null) {
+			nbPlays++;
 			nbRedFrame++;
 			
 			redPlayablesPos.remove(framePlayed);
@@ -178,6 +193,7 @@ public class Game{
 
 	public void playBlack(Frame framePlayed) {
 		if (framePlayed != null) {
+			nbPlays++;
 			nbBlackFrame++;
 			
 			redPlayablesPos.remove(framePlayed);
@@ -342,15 +358,28 @@ public class Game{
 		
 		State trigger = from.getState();
 		
-		List<Frame> opponentPlayables;
-		List<Frame> myPlayables;
+		Function<Frame, Void> reverseFrame;
 		
 		if (trigger == State.BLACK) {
-			myPlayables = blackPlayablesPos;
-			opponentPlayables = redPlayablesPos;
+			reverseFrame = toReverse -> {
+				toReverse.reverse();
+				nbRedFrame--;
+				nbBlackFrame++;
+				List<Frame> neighbors = getFreeNeighbors(toReverse);
+				neighbors.forEach(neighbor -> blackPlayablesPos.remove(neighbor));
+				neighbors.forEach(neighbor -> addToPlayables(neighbor, redPlayablesPos));
+				return null;
+			};
 		}else {
-			myPlayables = redPlayablesPos;
-			opponentPlayables = blackPlayablesPos;
+			reverseFrame = toReverse -> {
+				toReverse.reverse();
+				nbRedFrame++;
+				nbBlackFrame--;
+				List<Frame> neighbors = getFreeNeighbors(toReverse);
+				neighbors.forEach(neighbor -> redPlayablesPos.remove(neighbor));
+				neighbors.forEach(neighbor -> addToPlayables(neighbor, blackPlayablesPos));
+				return null;
+			};
 		}
 		
 		// lines
@@ -394,19 +423,13 @@ public class Game{
 		
 		for (int it = fromi + 1 ; it < toi && toi-fromi>1 ; it ++) {
 			if (frames[it][from.getP()].getState() != trigger) {
-				frames[it][from.getP()].reverse();
-				List<Frame> neighbors = getFreeNeighbors(frames[it][from.getP()]);
-				neighbors.forEach(neighbor -> myPlayables.remove(neighbor));
-				neighbors.forEach(neighbor -> addToPlayables(neighbor, opponentPlayables));
+				reverseFrame.apply(frames[it][from.getP()]);
 			}
 		}
 		
 		for (int it = fromp + 1 ; it < top && top-fromp>1 ; it ++) {
 			if (frames[from.getI()][it].getState() != trigger) {
-				frames[from.getI()][it].reverse();
-				List<Frame> neighbors = getFreeNeighbors(frames[from.getI()][it]);
-				neighbors.forEach(neighbor -> myPlayables.remove(neighbor));
-				neighbors.forEach(neighbor -> addToPlayables(neighbor, opponentPlayables));
+				reverseFrame.apply(frames[from.getI()][it]);
 			}
 		}
 		
@@ -456,19 +479,13 @@ public class Game{
 		
 		for (int it1 = fromip.getI(), it2 = fromip.getP() ; it1 < toip.getI() && fromip != toip; it1++, it2++) {
 			if (frames[it1][it2].getState() != trigger) {
-				frames[it1][it2].reverse();
-				List<Frame> neighbors = getFreeNeighbors(frames[it1][it2]);
-				neighbors.forEach(neighbor -> myPlayables.remove(neighbor));
-				neighbors.forEach(neighbor -> addToPlayables(neighbor, opponentPlayables));
+				reverseFrame.apply(frames[it1][it2]);
 			}
 		}
 		
 		for (int it1 = frompi.getI(), it2 = frompi.getP() ; it1 < topi.getI() && frompi != topi; it1++, it2--) {
 			if (frames[it1][it2].getState() != trigger){
-				frames[it1][it2].reverse();
-				List<Frame> neighbors = getFreeNeighbors(frames[it1][it2]);
-				neighbors.forEach(neighbor -> myPlayables.remove(neighbor));
-				neighbors.forEach(neighbor -> addToPlayables(neighbor, opponentPlayables));
+				reverseFrame.apply(frames[it1][it2]);
 			}	
 		}	
 	}

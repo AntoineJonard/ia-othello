@@ -1,7 +1,5 @@
 package othello;
 
-import java.util.Objects;
-
 public class Frame {
 	
 	private State state;
