@@ -50,12 +50,15 @@ public abstract class IA extends Player {
 			nodes.add(new Node(new Frame(f), 0));
 		}
 		
-		Node max = max(nodes,getGame());
+		Node max = max(nodes,0,getGame());
 		
 		return new Frame(State.EMPTY,max.getF().getI(),max.getF().getP());
 	}
 	
-	private Node min(List<Node> nodes, Game game) {
+	private Node min(List<Node> nodes, int maxValue, Game game) {
+		
+		int minValue = Integer.MAX_VALUE;
+		Node minNode = null;
 		
 		for (Node n : nodes) {
 
@@ -73,18 +76,27 @@ public abstract class IA extends Player {
 				if (n.getChilds().isEmpty()) {
 					n.setValue(computeHeuristique(n, fictive));
 				}else {
-					Node max = max(n.getChilds(),fictive);
-					
-					n.setValue(computeHeuristique(n, fictive)+max.getValue());
+					Node max = max(n.getChilds(), minValue ,fictive);
+				
+					n.setValue(max.getValue());
+
 				}
 			}
-
+			if (n.getValue() < minValue) {
+				minValue = n.getValue();
+				minNode = n;
+				if (minValue < maxValue)
+					return minNode;
+			}
 		}
 		
-		return nodes.stream().min((n1, n2) -> n1.getValue() - n2.getValue()).get();
+		return minNode;
 	}
 	
-	private Node max(List<Node> nodes, Game game) {
+	private Node max(List<Node> nodes, int minValue, Game game) {
+		
+		int maxValue = Integer.MIN_VALUE;
+		Node maxNode = null;
 		
 		for (Node n : nodes) {
 				
@@ -102,15 +114,20 @@ public abstract class IA extends Player {
 				if (n.getChilds().isEmpty()) {
 					n.setValue(computeHeuristique(n, fictive));
 				}else {
-					Node min = min(n.getChilds(),fictive);
+					Node min = min(n.getChilds(), maxValue ,fictive);
 					
-					n.setValue(computeHeuristique(n, fictive)+min.getValue());
+					n.setValue(min.getValue());
 				}
 			}
-				
+			if (n.getValue()>maxValue) {
+				maxValue = n.getValue();
+				maxNode = n;
+				if (maxValue > minValue)
+					return maxNode;
+			}
 		}
 		
-		return nodes.stream().max((n1, n2) -> n1.getValue() - n2.getValue()).get();
+		return maxNode;
 	}
 	
 	public abstract int computeHeuristique(Node current, Game game);

@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+D:\insa_hdf\4a\ia\ec-wk\.metadata\.plugins\org.eclipse.jdt.core
-2196199803.index
-2060721056.index
-1865797976.index
