@@ -11,12 +11,14 @@ public class Node {
 	private int depth;
 	private List<Node> childs;
 	private Frame f;
+	private boolean treated;
 	
 	public Node(Frame f, int depth) {
 		super();
 		this.f = f;
 		this.depth = depth;
 		childs = new ArrayList<>();
+		treated = false;
 	}
 
 	public int getDepth() {
@@ -28,6 +30,7 @@ public class Node {
 	}
 
 	public void setValue(int value) {
+		treated = true;
 		this.value = value;
 	}
 
@@ -38,5 +41,11 @@ public class Node {
 	public Frame getF() {
 		return f;
 	}
+
+	public boolean isTreated() {
+		return treated;
+	}
+	
+	
 		
 }

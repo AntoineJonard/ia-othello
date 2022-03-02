@@ -26,9 +26,12 @@ public abstract class IA extends Player {
 	
 	protected Type type;
 	
+	private Node choosen;
+	
 	public IA(int maxDepth) {
 		super();
 		this.maxDepth = maxDepth;
+		choosen = null;
 	}
 	
 	public Type getType() {
@@ -46,11 +49,25 @@ public abstract class IA extends Player {
 			return null;
 		}
 		
-		for (Frame f : playables) {
-			nodes.add(new Node(new Frame(f), 0));
+		if (choosen != null && getGame().getLastPlayed() != null) {
+			Node opponentChoice = null;
+			
+			for (Node n : choosen.getChilds()) {
+				if(n.equals(getGame().getLastPlayed())) {
+					opponentChoice = n;
+				}
+			}
+			
+			nodes = opponentChoice.getChilds();
+		}else {
+			for (Frame f : playables) {
+				nodes.add(new Node(new Frame(f), 0));
+			}
 		}
 		
 		Node max = max(nodes,getGame());
+		
+		choosen = max;
 		
 		return new Frame(State.EMPTY,max.getF().getI(),max.getF().getP());
 	}
@@ -91,6 +108,7 @@ public abstract class IA extends Player {
 			if (n.getDepth() >= maxDepth) {
 				n.setValue(computeHeuristique(n, null));
 			}else {
+			
 				Game fictive = new Game(game);
 				
 				fictive.playSide(getSide(), n.getF());

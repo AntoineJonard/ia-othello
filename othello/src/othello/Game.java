@@ -19,6 +19,8 @@ public class Game{
 	private int nbRedFrame = 0;
 	private int nbBlackFrame = 0;
 	
+	private Frame lastPlayed = null;
+	
 	private List<Frame> blackPlayablesPos = new ArrayList();
 	private List<Frame> redPlayablesPos = new ArrayList();
 	
@@ -66,6 +68,10 @@ public class Game{
 
 	public int getNbBlackFrame() {
 		return nbBlackFrame;
+	}
+
+	public Frame getLastPlayed() {
+		return lastPlayed;
 	}
 
 	public void display() {	
@@ -161,6 +167,7 @@ public class Game{
 	public void playRed(Frame framePlayed) {
 		if (framePlayed != null) {
 			nbRedFrame++;
+			lastPlayed = framePlayed;
 			
 			redPlayablesPos.remove(framePlayed);
 			blackPlayablesPos.remove(framePlayed);
@@ -179,6 +186,7 @@ public class Game{
 	public void playBlack(Frame framePlayed) {
 		if (framePlayed != null) {
 			nbBlackFrame++;
+			lastPlayed = framePlayed;
 			
 			redPlayablesPos.remove(framePlayed);
 			blackPlayablesPos.remove(framePlayed);
