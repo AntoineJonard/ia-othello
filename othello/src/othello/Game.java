@@ -271,42 +271,66 @@ public class Game{
 		
 		// lines
 		
-		if (frame.getI()+1<8 && frames[frame.getI()+1][frame.getP()].getState()==invState)
-			for (int i = frame.getI()+2 ; i < 8 ; i ++) {
-				tmp = frames[i][frame.getP()].getState();
-				if (tmp == endpoint)
-					return true;
-				if (tmp == State.EMPTY)
-					break;
-				
-			}
+		State objective = invState;
+		int found = 0;
 		
-		if (frame.getI()-1>=0 && frames[frame.getI()-1][frame.getP()].getState()==invState)
-			for (int i = frame.getI()-2 ; i >= 0 ; i --) {
-				tmp = frames[i][frame.getP()].getState();
-				if (tmp == endpoint)
+		for (int i = frame.getI()+1 ; i < 8 && found < 2; i ++) {
+			tmp = frames[i][frame.getP()].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;		
-			}
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
 		
-		if (frame.getP()+1 < 8 && frames[frame.getI()][frame.getP()+1].getState()==invState)
-			for (int p = frame.getP()+2; p < 8 ; p ++) {
-				tmp = frames[frame.getI()][p].getState();
-				if (tmp == endpoint)
+		objective = invState;
+		found = 0;
+		for (int i = frame.getI()-1 ; i >= 0 && found < 2; i --) {
+			tmp = frames[i][frame.getP()].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;	
-			}
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;			
+		}
 		
-		if (frame.getP()-1 >= 0 && frames[frame.getI()][frame.getP()-1].getState()==invState)
-			for (int p = frame.getP()-2 ; p >= 0 ; p --) {
-				tmp = frames[frame.getI()][p].getState();
-				if (tmp == endpoint)
+		objective = invState;
+		found = 0;
+		for (int p = frame.getP()+1; p < 8 && found < 2; p ++) {
+			tmp = frames[frame.getI()][p].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;
-			}
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
+		
+		objective = invState;
+		found = 0;
+		for (int p = frame.getP()-1 ; p >= 0 && found < 2; p --) {
+			tmp = frames[frame.getI()][p].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
+					return true;
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;		
+		}
 		
 		// diags
 		
@@ -314,41 +338,66 @@ public class Game{
 		int limiting = iinfp ? frame.getI() : frame.getP();
 		int excess = iinfp ? frame.getP(): frame.getI();
 		
-		if (frame.getI()+1 < 8 && frame.getP()+1 < 8 && frames[frame.getI()+1][frame.getP()+1].getState()==invState)
-			for (int ip = 2 ; excess + ip < 8; ip ++) {
-				tmp = frames[frame.getI()+ip][frame.getP()+ip].getState();
-				if (tmp == endpoint)
+
+		objective = invState;
+		found = 0;
+		for (int ip = 1 ; excess + ip < 8 && found < 2; ip ++) {
+			tmp = frames[frame.getI()+ip][frame.getP()+ip].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;
-			}
-		
-		if (frame.getI()-1 >= 0 && frame.getP()-1>=0 && frames[frame.getI()-1][frame.getP()-1].getState()==invState)
-			for (int ip = 2 ; limiting -ip >= 0 ; ip ++) {
-				tmp = frames[frame.getI()-ip][frame.getP()-ip].getState();
-				if (tmp == endpoint)
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
+	
+		objective = invState;
+		found = 0;
+		for (int ip = 1 ; limiting -ip >= 0  && found < 2; ip ++) {
+			tmp = frames[frame.getI()-ip][frame.getP()-ip].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;
-			}
-		
-		if (frame.getI()+1 < 8 && frame.getP()-1 >= 0 && frames[frame.getI()+1][frame.getP()-1].getState()==invState)
-			for (int ip = 2 ; frame.getI() +ip< 8 && frame.getP()-ip >= 0; ip ++) {
-				tmp = frames[frame.getI()+ip][frame.getP()-ip].getState();
-				if (tmp == endpoint)
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
+	
+		objective = invState;
+		found = 0;
+		for (int ip = 1 ; frame.getI() +ip< 8 && frame.getP()-ip >= 0  && found < 2; ip ++) {
+			tmp = frames[frame.getI()+ip][frame.getP()-ip].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;
-			}
-		
-		if (frame.getI()-1 >=0 && frame.getP()+1 < 8 && frames[frame.getI()-1][frame.getP()+1].getState()==invState)
-			for (int ip = 2 ; frame.getI()-ip >= 0 && frame.getP()+ip < 8 ; ip ++) {
-				tmp = frames[frame.getI()-ip][frame.getP()+ip].getState();
-				if (tmp == endpoint)
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
+	
+		objective = invState;
+		found = 0;
+		for (int ip = 1 ; frame.getI()-ip >= 0 && frame.getP()+ip < 8 && found < 2 ; ip ++) {
+			tmp = frames[frame.getI()-ip][frame.getP()+ip].getState();
+			if (tmp == objective) {
+				found ++;
+				if (objective == endpoint)
 					return true;
-				if (tmp == State.EMPTY)
-					break;
-			}
+				else
+					objective = endpoint;
+			}	
+			if (tmp == State.EMPTY)
+				break;	
+		}
 		
 		return false;
 	}
