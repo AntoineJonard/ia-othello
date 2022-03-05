@@ -548,4 +548,8 @@ public class Game{
 	public boolean gameEnd() {
 		return getBlackPlayables().isEmpty() && getRedPlayables().isEmpty() || nbRedFrame+nbBlackFrame >= 64;
 	}
+	
+	public Side whoWin() {
+		return getNbBlackFrame() > getNbRedFrame()?Side.BLACK:Side.RED;
+	}
 }
