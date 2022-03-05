@@ -1,4 +1,4 @@
-import ia.AbosuluIA;
+import ia.AbsoluIA;
 import ia.IaBuilder;
 import ia.Type;
 import othello.Frame;
@@ -26,13 +26,15 @@ public class Analyzer {
 	
 	private int[][] fDepth;
 	
-	private int nbGames;
+	private int nbGamesPlayed;
+	private int nbTotalGame;
 
 	public Analyzer(int untilDepth) {
 		super();
 		this.untilDepth = untilDepth;
 		this.nbRedWins = 0;
-		nbGames = 0;
+		nbGamesPlayed = 0;
+		nbTotalGame = Type.values().length*Type.values().length*(untilDepth+1)*(untilDepth+1);
 		this.nbBlackWins = 0;
 		nbBlackDepthWins = new int[untilDepth+1];
 		nbRedDepthWins = new int[untilDepth+1];
@@ -46,10 +48,13 @@ public class Analyzer {
 
 	public void analyze() {
 		
+		System.out.println("Analyse started.");
+		
 		for (Type p1 : Type.values()) {
 			for (Type p2 : Type.values()) {
 				for (int depthP1 = 0; depthP1 <= untilDepth ; depthP1++) {
 					for (int depthP2 = 0; depthP2 <= untilDepth ; depthP2++) {
+						
 						Player black = IaBuilder.getIA(p1, depthP1);
 						Player red = IaBuilder.getIA(p2, depthP2);
 						
@@ -88,8 +93,12 @@ public class Analyzer {
 							winsEqualDepth[depthP1][p1.ordinal()][p2.ordinal()] = winner;
 						}
 							
-						nbGames++;
+						nbGamesPlayed++;
 					}	
+					
+					float percent = ((float) nbGamesPlayed)/nbTotalGame*100;
+					
+					System.out.println("Analyzing ... ("+percent+"% done)");
 				}
 			}	
 		}
@@ -134,7 +143,7 @@ public class Analyzer {
 		System.out.println("Wins percent depending on depth\n");
 		for (int depth = 0 ; depth <= untilDepth ; depth++) {
 			System.out.print(fixedLengthString("Depth "+depth, 15));
-			float winPercent = ((float)depthWins[depth])/nbGames*100;
+			float winPercent = ((float)depthWins[depth])/nbGamesPlayed*100;
 			System.out.print("|");
 			for (int i = 0 ; i < winPercent ; i++) {
 				System.out.print("-");
@@ -170,7 +179,7 @@ public class Analyzer {
 		
 		for (Type type : Type.values()) {
 			System.out.print(fixedLengthString(type.toString(), 15));
-			float winPercent = ((float)iaTypeWins[type.ordinal()])/nbGames*100;
+			float winPercent = ((float)iaTypeWins[type.ordinal()])/nbGamesPlayed*100;
 			System.out.print("|");
 			for (int i = 0 ; i < winPercent ; i++) {
 				System.out.print("-");
@@ -180,7 +189,7 @@ public class Analyzer {
 	}
 
 	private void displayWinsAccordingToDepth() {
-		System.out.println("Wins depending on Depth\n");
+		System.out.println("IA Wins depending on Depth\n");
 		
 		System.out.print(fixedLengthString("IA type \\ Depth", 20));
 		

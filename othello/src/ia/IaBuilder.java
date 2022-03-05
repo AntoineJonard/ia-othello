@@ -7,7 +7,7 @@ public class IaBuilder {
 	public static IA getIA(Type iaType, int depth) {
 		switch(iaType){
 		case ABSOLU:
-			return new AbosuluIA(depth);
+			return new AbsoluIA(depth);
 		case MIXTE:
 			return new MixteIA(depth);
 		case MOBILITE:

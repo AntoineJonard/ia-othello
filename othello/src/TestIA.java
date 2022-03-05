@@ -1,4 +1,4 @@
-import ia.AbosuluIA;
+import ia.AbsoluIA;
 import ia.MixteIA;
 import ia.MobiliteIA;
 import ia.PositionnelIA;

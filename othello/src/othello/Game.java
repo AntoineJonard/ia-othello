@@ -24,6 +24,9 @@ public class Game{
 	private List<Frame> blackPlayablesPos = new ArrayList();
 	private List<Frame> redPlayablesPos = new ArrayList();
 	
+	private List<Frame> blackPlayed = new ArrayList();
+	private List<Frame> redPlayed = new ArrayList();
+	
 	public Game() {
 		super();
 		
@@ -41,6 +44,9 @@ public class Game{
 		
 		from.blackPlayablesPos.forEach(f -> blackPlayablesPos.add(new Frame(f)));
 		from.redPlayablesPos.forEach(f -> redPlayablesPos.add(new Frame(f)));
+		
+		from.blackPlayed.forEach(f -> blackPlayed.add(new Frame(f)));
+		from.redPlayed.forEach(f -> redPlayed.add(new Frame(f)));
 		
 		nbPlays = from.nbPlays;
 		nbRedFrame = from.nbRedFrame;
@@ -78,6 +84,19 @@ public class Game{
 		return nbPlays;
 	}
 
+	public List<Frame> getBlackPlayed() {
+		return blackPlayed;
+	}
+
+
+	public List<Frame> getRedPlayed() {
+		return redPlayed;
+	}
+
+	public List<Frame> getSidePlayed(Side side){
+		return side == Side.BLACK ? getBlackPlayed():getRedPlayed();
+	}
+	
 	public void display() {	
 		for (int i = 0 ; i < 8 ; i++) {
 			for (int p = 0 ; p < 8 ; p++) {
@@ -109,7 +128,7 @@ public class Game{
 	public List<Frame> displayPlayables(Side side) {	
 		
 		List<Frame> playables = side == Side.BLACK ? getBlackPlayables() : getRedPlayables();
-		List<Frame> orderedPlayables = new ArrayList();
+		List<Frame> orderedPlayables = new ArrayList<Frame>();
 		int cpt = 1;
 		
 		for (int i = 0 ; i < 8 ; i++) {
@@ -157,6 +176,11 @@ public class Game{
 		frames[3][4].setBlack();
 		frames[4][3].setBlack();
 		
+		redPlayed.add(frames[3][3]);
+		redPlayed.add(frames[4][4]);
+		blackPlayed.add(frames[3][4]);
+		blackPlayed.add(frames[4][3]);
+		
 		nbBlackFrame = 2;
 		nbRedFrame = 2;
 		
@@ -175,6 +199,7 @@ public class Game{
 		if (framePlayed != null) {
 			nbPlays++;
 			nbRedFrame++;
+			redPlayed.add(framePlayed);
 			
 			redPlayablesPos.remove(framePlayed);
 			blackPlayablesPos.remove(framePlayed);
@@ -194,6 +219,7 @@ public class Game{
 		if (framePlayed != null) {
 			nbPlays++;
 			nbBlackFrame++;
+			blackPlayed.add(framePlayed);
 			
 			redPlayablesPos.remove(framePlayed);
 			blackPlayablesPos.remove(framePlayed);
