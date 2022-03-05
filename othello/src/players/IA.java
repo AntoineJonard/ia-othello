@@ -42,7 +42,6 @@ public abstract class IA extends Player {
 		List<Node> nodes = new ArrayList<>();
 		
 		if (playables.isEmpty()) {
-			System.out.println("Aucun coup n'est possible ! Tour passé");
 			return null;
 		}
 		

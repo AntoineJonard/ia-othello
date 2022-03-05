@@ -27,11 +27,18 @@ public class TestIA {
 			
 			Frame blackPlayed = p1.play();
 			
+			if (blackPlayed == null)
+				System.out.println("Aucun coup n'est possible ! Tour passé");
+			
 			game.playBlack(blackPlayed);
 			
 			game.display();
 						
 			Frame redPlayed = p2.play();
+			
+			if (redPlayed == null) {
+				System.out.println("Aucun coup n'est possible ! Tour passé");
+			}
 			
 			game.playRed(redPlayed);
 			
