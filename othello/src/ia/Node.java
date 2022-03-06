@@ -27,6 +27,10 @@ public class Node {
 		return childs;
 	}
 
+	public void freeChilds() {
+		childs = null;
+	}
+	
 	public float getValue() {
 		return value;
 	}

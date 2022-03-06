@@ -75,6 +75,8 @@ public abstract class IA extends Player {
 
 				Node max = max(n.getChilds(), minValue ,fictive);
 				
+				n.freeChilds();
+				
 				n.setValue(max.getValue());
 
 			}
@@ -111,6 +113,8 @@ public abstract class IA extends Player {
 				
 				Node min = min(n.getChilds(), maxValue ,fictive);
 					
+				n.freeChilds();
+				
 				n.setValue(min.getValue());
 					
 			}
