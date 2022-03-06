@@ -1,3 +1,10 @@
+#Analyzing IAs
+
+The Analyzer class make every IA play against each other from 0 depth to a specified depth. 
+Here are the outputs for different max depth.
+
+##Depth 5
+
 Results
 _________
 
@@ -117,24 +124,7 @@ ABSOLU         |--------------------> 19.444445%
 _________
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##Depth 6
 
 
 Results
@@ -270,17 +260,7 @@ ABSOLU         |--------------------> 19.387754%
 _________
 
 
-
-
-
-
-
-
-
-
-
-
-
+##Depth 7
 
 
 Results
