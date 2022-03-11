@@ -1,4 +1,4 @@
-import ia.AbosuluIA;
+import ia.AbsoluIA;
 import ia.MixteIA;
 import ia.MobiliteIA;
 import ia.PositionnelIA;
@@ -13,8 +13,8 @@ public class TestIA {
 		
 		int round = 1;
 		
-		Player p1 = new PositionnelIA(7);
-		Player p2 = new PositionnelIA(7);
+		Player p1 = new PositionnelIA(3);
+		Player p2 = new PositionnelIA(3);
 		
 		Game game = new Game();
 		

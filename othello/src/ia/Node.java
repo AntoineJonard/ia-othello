@@ -7,7 +7,7 @@ import othello.Frame;
 
 public class Node {
 
-	private int value;
+	private float value;
 	private int depth;
 	private List<Node> childs;
 	private Frame f;
@@ -27,12 +27,16 @@ public class Node {
 		return childs;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void freeChilds() {
+		childs = null;
+	}
+	
+	public float getValue() {
+		return value;
 	}
 
-	public int getValue() {
-		return value;
+	public void setValue(float value) {
+		this.value = value;
 	}
 
 	public Frame getF() {

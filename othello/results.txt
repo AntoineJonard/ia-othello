@@ -1,0 +1,412 @@
+#Analyzing IAs
+
+The Analyzer class make every IA play against each other from 0 depth to a specified depth. 
+Here are the outputs for different max depth.
+
+##Depth 5
+
+Results
+_________
+
+Red wins :	295
+Black wins :	281
+_________
+
+Wins percent depending on depth
+
+Depth 0        |-------------> 12.326388%
+Depth 1        |----------------> 15.277778%
+Depth 2        |----------------> 15.625%
+Depth 3        |------------------> 17.36111%
+Depth 4        |-------------------> 18.92361%
+Depth 5        |---------------------> 20.48611%
+_________
+
+Side Wins percent depending on depth
+
+Depth 0
+
+BLACK          |----------------------------------------> 39.583336%
+RED            |-----------------------------------> 34.375%
+
+Depth 1
+
+BLACK          |------------------------------------------> 41.666664%
+RED            |--------------------------------------------------> 50.0%
+
+Depth 2
+
+BLACK          |---------------------------------------------> 44.791664%
+RED            |-------------------------------------------------> 48.958336%
+
+Depth 3
+
+BLACK          |--------------------------------------------------> 50.0%
+RED            |-------------------------------------------------------> 54.166668%
+
+Depth 4
+
+BLACK          |--------------------------------------------------------> 55.208332%
+RED            |-----------------------------------------------------------> 58.333332%
+
+Depth 5
+
+BLACK          |--------------------------------------------------------------> 61.458332%
+RED            |--------------------------------------------------------------> 61.458332%
+
+_________
+
+Wins with equal depth for BLACK and RED : 0
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       RED            BLACK          RED            BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         BLACK          BLACK          BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 1
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          RED            RED            
+MIXTE          RED            RED            RED            RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 2
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            RED            BLACK          BLACK          
+MIXTE          RED            BLACK          BLACK          BLACK          
+ABSOLU         RED            RED            BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 3
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          RED            RED            BLACK          RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 4
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       BLACK          RED            RED            RED            
+MIXTE          BLACK          BLACK          RED            RED            
+ABSOLU         RED            BLACK          RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 5
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          RED            
+MOBILITE       BLACK          RED            RED            BLACK          
+MIXTE          RED            RED            RED            BLACK          
+ABSOLU         BLACK          RED            RED            BLACK          
+
+_________
+
+IA Wins depending on Depth
+
+IA type \ Depth     0                   1                   2                   3                   4                   5                   
+POSITIONNEL         26                  26                  33                  33                  36                  36                  
+MOBILITE            14                  23                  17                  25                  26                  29                  
+MIXTE               12                  21                  20                  31                  26                  30                  
+ABSOLU              19                  18                  20                  11                  21                  23                  
+_________
+
+IA Wins percent
+
+POSITIONNEL    |---------------------------------> 32.98611%
+MOBILITE       |------------------------> 23.26389%
+MIXTE          |-------------------------> 24.305555%
+ABSOLU         |--------------------> 19.444445%
+_________
+
+
+##Depth 6
+
+
+Results
+_________
+
+Red wins :	397
+Black wins :	387
+_________
+
+Wins percent depending on depth
+
+Depth 0        |-----------> 10.204082%
+Depth 1        |-------------> 12.244898%
+Depth 2        |-------------> 12.627551%
+Depth 3        |--------------> 13.903061%
+Depth 4        |----------------> 15.816326%
+Depth 5        |------------------> 17.219389%
+Depth 6        |------------------> 17.984694%
+_________
+
+Side Wins percent depending on depth
+
+Depth 0
+
+BLACK          |---------------------------------------> 38.392857%
+RED            |----------------------------------> 33.035713%
+
+Depth 1
+
+BLACK          |------------------------------------------> 41.07143%
+RED            |---------------------------------------------> 44.642857%
+
+Depth 2
+
+BLACK          |------------------------------------------> 41.07143%
+RED            |------------------------------------------------> 47.32143%
+
+Depth 3
+
+BLACK          |----------------------------------------------> 45.535713%
+RED            |----------------------------------------------------> 51.785713%
+
+Depth 4
+
+BLACK          |-------------------------------------------------------> 54.464287%
+RED            |---------------------------------------------------------> 56.25%
+
+Depth 5
+
+BLACK          |-------------------------------------------------------------> 60.714287%
+RED            |------------------------------------------------------------> 59.821426%
+
+Depth 6
+
+BLACK          |-----------------------------------------------------------------> 64.28571%
+RED            |--------------------------------------------------------------> 61.60714%
+
+_________
+
+Wins with equal depth for BLACK and RED : 0
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       RED            BLACK          RED            BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         BLACK          BLACK          BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 1
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          RED            RED            
+MIXTE          RED            RED            RED            RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 2
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            RED            BLACK          BLACK          
+MIXTE          RED            BLACK          BLACK          BLACK          
+ABSOLU         RED            RED            BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 3
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          RED            RED            BLACK          RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 4
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       BLACK          RED            RED            RED            
+MIXTE          BLACK          BLACK          RED            RED            
+ABSOLU         RED            BLACK          RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 5
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          RED            
+MOBILITE       BLACK          RED            RED            BLACK          
+MIXTE          RED            RED            RED            BLACK          
+ABSOLU         BLACK          RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 6
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    BLACK          BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         RED            RED            RED            RED            
+
+_________
+
+IA Wins depending on Depth
+
+IA type \ Depth     0                   1                   2                   3                   4                   5                   6                   
+POSITIONNEL         28                  28                  36                  36                  43                  43                  41                  
+MOBILITE            16                  24                  20                  26                  29                  33                  25                  
+MIXTE               14                  25                  23                  35                  28                  34                  45                  
+ABSOLU              22                  19                  20                  12                  24                  25                  30                  
+_________
+
+IA Wins percent
+
+POSITIONNEL    |---------------------------------> 32.52551%
+MOBILITE       |-----------------------> 22.066326%
+MIXTE          |---------------------------> 26.020409%
+ABSOLU         |--------------------> 19.387754%
+_________
+
+
+##Depth 7
+
+
+Results
+_________
+
+Red wins :	510
+Black wins :	514
+_________
+
+Wins percent depending on depth
+
+Depth 0        |---------> 8.3984375%
+Depth 1        |-----------> 10.15625%
+Depth 2        |----------> 9.863281%
+Depth 3        |------------> 11.1328125%
+Depth 4        |--------------> 13.574219%
+Depth 5        |---------------> 14.746094%
+Depth 6        |----------------> 15.625%
+Depth 7        |-----------------> 16.503906%
+_________
+
+Side Wins percent depending on depth
+
+Depth 0
+
+BLACK          |------------------------------------> 35.9375%
+RED            |--------------------------------> 31.25%
+
+Depth 1
+
+BLACK          |---------------------------------------> 38.28125%
+RED            |-------------------------------------------> 42.96875%
+
+Depth 2
+
+BLACK          |------------------------------------> 35.9375%
+RED            |-------------------------------------------> 42.96875%
+
+Depth 3
+
+BLACK          |------------------------------------------> 41.40625%
+RED            |------------------------------------------------> 47.65625%
+
+Depth 4
+
+BLACK          |------------------------------------------------------> 53.90625%
+RED            |-------------------------------------------------------> 54.6875%
+
+Depth 5
+
+BLACK          |-------------------------------------------------------------> 60.9375%
+RED            |----------------------------------------------------------> 57.03125%
+
+Depth 6
+
+BLACK          |-----------------------------------------------------------------> 64.84375%
+RED            |-------------------------------------------------------------> 60.15625%
+
+Depth 7
+
+BLACK          |-----------------------------------------------------------------------> 70.3125%
+RED            |--------------------------------------------------------------> 61.71875%
+
+_________
+
+Wins with equal depth for BLACK and RED : 0
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       RED            BLACK          RED            BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         BLACK          BLACK          BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 1
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          RED            RED            
+MIXTE          RED            RED            RED            RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 2
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            RED            BLACK          BLACK          
+MIXTE          RED            BLACK          BLACK          BLACK          
+ABSOLU         RED            RED            BLACK          RED            
+
+Wins with equal depth for BLACK and RED : 3
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          RED            RED            BLACK          RED            
+ABSOLU         RED            RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 4
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          BLACK          
+MOBILITE       BLACK          RED            RED            RED            
+MIXTE          BLACK          BLACK          RED            RED            
+ABSOLU         RED            BLACK          RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 5
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          RED            
+MOBILITE       BLACK          RED            RED            BLACK          
+MIXTE          RED            RED            RED            BLACK          
+ABSOLU         BLACK          RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 6
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    BLACK          BLACK          RED            BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         RED            RED            RED            RED            
+
+Wins with equal depth for BLACK and RED : 7
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    BLACK          BLACK          BLACK          BLACK          
+MOBILITE       RED            BLACK          BLACK          BLACK          
+MIXTE          RED            RED            BLACK          BLACK          
+ABSOLU         BLACK          RED            BLACK          BLACK          
+
+_________
+
+IA Wins depending on Depth
+
+IA type \ Depth     0                   1                   2                   3                   4                   5                   6                   7                   
+POSITIONNEL         30                  30                  37                  37                  49                  49                  47                  47                  
+MOBILITE            17                  25                  21                  28                  31                  38                  30                  40                  
+MIXTE               15                  28                  23                  36                  32                  36                  50                  50                  
+ABSOLU              24                  21                  20                  13                  27                  28                  33                  32                  
+_________
+
+IA Wins percent
+
+POSITIONNEL    |--------------------------------> 31.835938%
+MOBILITE       |-----------------------> 22.460938%
+MIXTE          |---------------------------> 26.367188%
+ABSOLU         |--------------------> 19.335938%
+_________
+
+

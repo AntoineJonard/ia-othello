@@ -1,5 +1,8 @@
 package ia;
 
+import java.util.List;
+
+import othello.Frame;
 import othello.Game;
 import players.IA;
 
@@ -11,8 +14,16 @@ public class PositionnelIA extends IA {
 	}
 
 	@Override
-	public int computeHeuristique(Node current, Game game) {
-		return tacticalValues[current.getF().getI()][current.getF().getP()];
+	public float computeHeuristique(Game game) {
+		
+		List<Frame> played = game.getSidePlayed(getSide());
+		
+		int tacticalValue = 0;
+		
+		for (Frame f : played)
+			 tacticalValue += tacticalValues[f.getI()][f.getP()];
+		
+		return tacticalValue;
 	}
 
 }

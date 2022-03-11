@@ -49,38 +49,38 @@ public abstract class IA extends Player {
 			nodes.add(new Node(new Frame(f), 0));
 		}
 		
-		Node max = max(nodes,0,getGame());
+		Node max = max(nodes,Integer.MAX_VALUE,getGame());
 		
 		return new Frame(State.EMPTY,max.getF().getI(),max.getF().getP());
 	}
 	
-	private Node min(List<Node> nodes, int maxValue, Game game) {
+	private Node min(List<Node> nodes, float maxValue, Game game) {
 		
-		int minValue = Integer.MAX_VALUE;
+		float minValue = Integer.MAX_VALUE;
 		Node minNode = null;
 		
 		for (Node n : nodes) {
 
-			if (n.getDepth() >= maxDepth) {
-				n.setValue(computeHeuristique(n, game));
-			}else {
-				Game fictive = new Game(game);
-				
-				fictive.playSide(getOpponentSide(), n.getF());
-								
-				for (Frame f : fictive.getSidePlayable(getSide())) {
-					n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
-				}
-				
-				if (n.getChilds().isEmpty()) {
-					n.setValue(computeHeuristique(n, fictive));
-				}else {
-					Node max = max(n.getChilds(), minValue ,fictive);
-				
-					n.setValue(max.getValue());
-
-				}
+			Game fictive = new Game(game);
+			
+			fictive.playSide(getOpponentSide(), n.getF());
+							
+			for (Frame f : fictive.getSidePlayable(getSide())) {
+				n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
 			}
+			
+			if (n.getDepth() >= maxDepth || n.getChilds().isEmpty()) 
+				n.setValue(computeHeuristique(fictive));
+			else {
+
+				Node max = max(n.getChilds(), minValue ,fictive);
+				
+				n.freeChilds();
+				
+				n.setValue(max.getValue());
+
+			}
+
 			if (n.getValue() < minValue) {
 				minValue = n.getValue();
 				minNode = n;
@@ -92,32 +92,33 @@ public abstract class IA extends Player {
 		return minNode;
 	}
 	
-	private Node max(List<Node> nodes, int minValue, Game game) {
+	private Node max(List<Node> nodes, float minValue, Game game) {
 		
-		int maxValue = Integer.MIN_VALUE;
+		float maxValue = Integer.MIN_VALUE;
 		Node maxNode = null;
 		
 		for (Node n : nodes) {
 				
-			if (n.getDepth() >= maxDepth) {
-				n.setValue(computeHeuristique(n, game));
-			}else {
-				Game fictive = new Game(game);
-				
-				fictive.playSide(getSide(), n.getF());
-								
-				for (Frame f : fictive.getSidePlayable(getOpponentSide())) {
-					n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
-				}
-				
-				if (n.getChilds().isEmpty()) {
-					n.setValue(computeHeuristique(n, fictive));
-				}else {
-					Node min = min(n.getChilds(), maxValue ,fictive);
-					
-					n.setValue(min.getValue());
-				}
+			Game fictive = new Game(game);
+			
+			fictive.playSide(getSide(), n.getF());
+			
+			for (Frame f : fictive.getSidePlayable(getOpponentSide())) {
+				n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
 			}
+			
+			if (n.getDepth() >= maxDepth || n.getChilds().isEmpty()) 
+				n.setValue(computeHeuristique(fictive));
+			else {
+				
+				Node min = min(n.getChilds(), maxValue ,fictive);
+					
+				n.freeChilds();
+				
+				n.setValue(min.getValue());
+					
+			}
+			
 			if (n.getValue()>maxValue) {
 				maxValue = n.getValue();
 				maxNode = n;
@@ -125,9 +126,11 @@ public abstract class IA extends Player {
 					return maxNode;
 			}
 		}
+		if (maxNode == null)
+			System.out.println();
 		
 		return maxNode;
 	}
 	
-	public abstract int computeHeuristique(Node current, Game game);
+	public abstract float computeHeuristique(Game game);
 }
