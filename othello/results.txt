@@ -410,3 +410,114 @@ ABSOLU         |--------------------> 19.335938%
 _________
 
 
+
+#Depth 4-7
+
+
+
+Results
+_________
+
+Red wins :	113
+Black wins :	143
+_________
+
+Wins percent depending on depth
+
+Depth 4        |---------------------> 20.703125%
+Depth 5        |------------------------> 23.046875%
+Depth 6        |-----------------------------> 28.515625%
+Depth 7        |----------------------------> 27.734375%
+_________
+
+Side Wins percent depending on depth
+
+Depth 4
+
+BLACK          |-------------------------------------------------> 48.4375%
+RED            |-----------------------------------> 34.375%
+
+Depth 5
+
+BLACK          |-----------------------------------------------> 46.875%
+RED            |----------------------------------------------> 45.3125%
+
+Depth 6
+
+BLACK          |--------------------------------------------------------------------> 67.1875%
+RED            |-----------------------------------------------> 46.875%
+
+Depth 7
+
+BLACK          |-------------------------------------------------------------> 60.9375%
+RED            |--------------------------------------------------> 50.0%
+
+_________
+
+Wins with equal depth for BLACK and RED : 4
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            BLACK          BLACK          RED            
+MOBILITE       BLACK          BLACK          BLACK          BLACK          
+MIXTE          BLACK          BLACK          RED            BLACK          
+ABSOLU         BLACK          BLACK          RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 5
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    RED            RED            RED            RED            
+MOBILITE       BLACK          BLACK          BLACK          RED            
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         BLACK          RED            RED            BLACK          
+
+Wins with equal depth for BLACK and RED : 6
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    BLACK          RED            RED            BLACK          
+MOBILITE       RED            RED            BLACK          BLACK          
+MIXTE          BLACK          BLACK          BLACK          BLACK          
+ABSOLU         BLACK          RED            RED            RED            
+
+Wins with equal depth for BLACK and RED : 7
+
+BLACK \ RED    POSITIONNEL    MOBILITE       MIXTE          ABSOLU         
+POSITIONNEL    BLACK          RED            BLACK          RED            
+MOBILITE       RED            RED            RED            BLACK          
+MIXTE          BLACK          RED            BLACK          BLACK          
+ABSOLU         RED            RED            BLACK          BLACK          
+
+_________
+
+IA Wins depending on Depth
+
+IA type \ Depth     4                   5                   6                   7                   
+POSITIONNEL         12                  12                  18                  16                  
+MOBILITE            16                  17                  21                  23                  
+MIXTE               18                  19                  23                  24                  
+ABSOLU              7                   11                  11                  8                   
+_________
+
+IA Wins percent
+
+POSITIONNEL    |-----------------------> 22.65625%
+MOBILITE       |-------------------------------> 30.078125%
+MIXTE          |---------------------------------> 32.8125%
+ABSOLU         |---------------> 14.453125%
+_________
+
+Average nodes generated for each type of IA depending on depth
+
+IA type \ Depth     4                   5                   6                   7                   
+POSITIONNEL         786836              3354840             18215135            131948685           
+MOBILITE            1168263             6852745             41657632            195594894           
+MIXTE               877401              3870100             18544735            151104782           
+ABSOLU              1051062             5721333             47843604            267221347           
+_________
+
+Average time spent (secondes) for a choice for each type of IA depending on depth
+
+IA type \ Depth     4                   5                   6                   7                   
+POSITIONNEL         00:08               00:38               00:197              01:470              
+MOBILITE            00:21               00:100              00:733              02:658              
+MIXTE               00:14               00:63               00:298              02:372              
+ABSOLU              00:11               00:64               00:495              03:61 

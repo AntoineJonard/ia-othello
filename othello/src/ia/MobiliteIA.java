@@ -40,7 +40,11 @@ public class MobiliteIA extends IA{
 			moyMinDist += minDist;
 		}
 		
-		moyMinDist /= played.size();
+		if (played.isEmpty()) {
+			moyMinDist = 7;
+		}else {
+			moyMinDist /= played.size();
+		}
 
 		return possibilities-moyMinDist;
 	}

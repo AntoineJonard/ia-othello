@@ -1,4 +1,5 @@
 
+import ia.MobiliteIA;
 import othello.Frame;
 import othello.Game;
 import players.Human;
@@ -12,7 +13,7 @@ public class TestHuman {
 		int round = 1;
 			
 		Player p1 = new Human();
-		Player p2 = new Human();
+		Player p2 = new MobiliteIA(9);
 		
 		Game game = new Game();
 		
@@ -33,6 +34,8 @@ public class TestHuman {
 			
 			round++;
 		}
+		
+		
 		
 		System.out.println("Nombre de jetons noirs :"+game.getNbBlackFrame());
 		System.out.println("Nombre de jetons rouges :"+game.getNbRedFrame());

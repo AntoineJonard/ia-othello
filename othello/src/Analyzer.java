@@ -1,14 +1,18 @@
+import java.util.concurrent.TimeUnit;
+
 import ia.AbsoluIA;
 import ia.IaBuilder;
 import ia.Type;
 import othello.Frame;
 import othello.Game;
+import players.IA;
 import players.Player;
 import players.Side;
 
 public class Analyzer {
 	
 	private int untilDepth;
+	private int fromDepth;
 	
 	private int nbRedWins;
 	private int nbBlackWins;
@@ -26,29 +30,33 @@ public class Analyzer {
 	
 	private int[][] fDepth;
 	
-	private long[][] timeDepth;
+	private long[][] averageTimeSpentDepth;
 	
 	private int nbGamesPlayed;
 	private int nbTotalGame;
-	private int[] nodesDepth;
+	private double[][] nodesGeneratedDepth;
+	
+	private int range;
 
-	public Analyzer(int untilDepth) {
+	public Analyzer(int fromDepth, int untilDepth) {
 		super();
+		range = untilDepth - fromDepth+1;
 		this.untilDepth = untilDepth;
+		this.fromDepth = fromDepth;
 		this.nbRedWins = 0;
 		nbGamesPlayed = 0;
-		nbTotalGame = Type.values().length*Type.values().length*(untilDepth+1)*(untilDepth+1);
+		nbTotalGame = Type.values().length*Type.values().length*(range)*(range);
 		this.nbBlackWins = 0;
-		nbBlackDepthWins = new int[untilDepth+1];
-		nbRedDepthWins = new int[untilDepth+1];
-		nbBlackDepthPlayed = new int[untilDepth+1];
-		nbRedDepthPlayed = new int[untilDepth+1];
-		this.fDepth = new int[Type.values().length][untilDepth+1];
-		this.winsEqualDepth = new Side[untilDepth+1][Type.values().length][Type.values().length];
+		nbBlackDepthWins = new int[range];
+		nbRedDepthWins = new int[range];
+		nbBlackDepthPlayed = new int[range];
+		nbRedDepthPlayed = new int[range];
+		this.fDepth = new int[Type.values().length][range];
+		this.winsEqualDepth = new Side[range][Type.values().length][Type.values().length];
 		iaTypeWins = new int [Type.values().length];
-		depthWins = new int[untilDepth+1];
-		nodesDepth = new int[untilDepth+1];
-		timeDepth = new long[Type.values().length][untilDepth+1];
+		depthWins = new int[range];
+		nodesGeneratedDepth = new double[Type.values().length][range];
+		averageTimeSpentDepth = new long[Type.values().length][range];
 	}
 
 	public void analyze() {
@@ -57,11 +65,11 @@ public class Analyzer {
 		
 		for (Type p1 : Type.values()) {
 			for (Type p2 : Type.values()) {
-				for (int depthP1 = 0; depthP1 <= untilDepth ; depthP1++) {
-					for (int depthP2 = 0; depthP2 <= untilDepth ; depthP2++) {
+				for (int depthP1 = 0; depthP1 < range ; depthP1++) {
+					for (int depthP2 = 0; depthP2 < range ; depthP2++) {
 						
-						Player black = IaBuilder.getIA(p1, depthP1);
-						Player red = IaBuilder.getIA(p2, depthP2);
+						IA black = IaBuilder.getIA(p1, depthP1+fromDepth);
+						IA red = IaBuilder.getIA(p2, depthP2+fromDepth);
 						
 						Game game = new Game();
 						
@@ -73,11 +81,16 @@ public class Analyzer {
 						try {
 							winner = playGame(black, red, game);	
 						}catch(OutOfMemoryError e) {
-							System.out.println("Memory limitation for depth :" + depthP1 + "(black)" + depthP2 + "(red)");
+							System.out.println("Memory limitation for depth :" + (depthP1+fromDepth) + "(black)" + (depthP2+fromDepth) + "(red)");
 						}
 						
 						nbBlackDepthPlayed[depthP1]++;
 						nbRedDepthPlayed[depthP2]++;
+						
+						nodesGeneratedDepth[p1.ordinal()][depthP1]+=black.getNbNodesGenerated();
+						nodesGeneratedDepth[p2.ordinal()][depthP2]+=red.getNbNodesGenerated();
+						averageTimeSpentDepth[p1.ordinal()][depthP1]+=black.getAverageTimeSpent();
+						averageTimeSpentDepth[p2.ordinal()][depthP2]+=red.getAverageTimeSpent();
 						
 						if (winner == Side.RED) {
 							nbRedWins++;
@@ -105,8 +118,17 @@ public class Analyzer {
 					
 					System.out.println("Analyzing ... ("+percent+"% done)");
 				}
-			}	
+			}
 		}
+		
+		int nbIaInstanceGamesPlayed = Type.values().length * (range) * 2;
+		
+		for (Type type : Type.values()) {
+			for (int depth = 0; depth < range ; depth++) {
+				nodesGeneratedDepth[type.ordinal()][depth] /= nbIaInstanceGamesPlayed;
+				averageTimeSpentDepth[type.ordinal()][depth] /= nbIaInstanceGamesPlayed;
+			}
+		}	
 	}
 
 	private Side playGame(Player black, Player red, Game game) {
@@ -141,13 +163,71 @@ public class Analyzer {
 		System.out.println("_________\n");
 		displayIaWinsGraphe();
 		System.out.println("_________\n");	
+		displayNodesGenerated();
+		System.out.println("_________\n");	
+		displayTimeSpent();
+	}
+
+	private void displayTimeSpent() {
+		System.out.println("Average time spent (secondes) for a choice for each type of IA depending on depth\n");
+		
+		System.out.print(fixedLengthString("IA type \\ Depth", 20));
+		
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.print(fixedLengthString(Integer.toString((depth+fromDepth), 20),20));
+		}
+		
+		System.out.println();
+		
+		for (Type type : Type.values()) {
+			
+			System.out.print(fixedLengthString(type.toString(), 20));
+			
+			for (int depth = 0 ; depth < range ; depth++) {
+				
+				String min = String.format("%02d:%02d",
+					     TimeUnit.MILLISECONDS.toSeconds(averageTimeSpentDepth[type.ordinal()][depth]),
+					     averageTimeSpentDepth[type.ordinal()][depth] -
+					     TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(averageTimeSpentDepth[type.ordinal()][depth])));
+				
+				System.out.print(fixedLengthString(min, 20));
+			}
+			
+			System.out.println();
+		}
+		
+	}
+
+	private void displayNodesGenerated() {
+		System.out.println("Average nodes generated for each type of IA depending on depth\n");
+		
+		System.out.print(fixedLengthString("IA type \\ Depth", 20));
+		
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.print(fixedLengthString(Integer.toString((depth+fromDepth), 20),20));
+		}
+		
+		System.out.println();
+		
+		for (Type type : Type.values()) {
+			
+			System.out.print(fixedLengthString(type.toString(), 20));
+			
+			for (int depth = 0 ; depth < range ; depth++) {
+				System.out.print(fixedLengthString(Integer.toString((int)Math.floor(nodesGeneratedDepth[type.ordinal()][depth])), 20));
+			}
+			
+			System.out.println();
+		}
+		
+		
 	}
 
 	private void displayDepthWins() {
 		
 		System.out.println("Wins percent depending on depth\n");
-		for (int depth = 0 ; depth <= untilDepth ; depth++) {
-			System.out.print(fixedLengthString("Depth "+depth, 15));
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.print(fixedLengthString("Depth "+(depth+fromDepth), 15));
 			float winPercent = ((float)depthWins[depth])/nbGamesPlayed*100;
 			System.out.print("|");
 			for (int i = 0 ; i < winPercent ; i++) {
@@ -159,8 +239,8 @@ public class Analyzer {
 
 	private void displayDepthSideWins() {
 		System.out.println("Side Wins percent depending on depth\n");
-		for (int depth = 0 ; depth <= untilDepth ; depth++) {
-			System.out.println("Depth "+depth+"\n");
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.println("Depth "+(depth+fromDepth)+"\n");
 			System.out.print(fixedLengthString(Side.BLACK.toString(), 15));
 			float winPercent = ((float)nbBlackDepthWins[depth])/nbBlackDepthPlayed[depth]*100;
 			System.out.print("|");
@@ -198,8 +278,8 @@ public class Analyzer {
 		
 		System.out.print(fixedLengthString("IA type \\ Depth", 20));
 		
-		for (int depth = 0 ; depth <= untilDepth ; depth++) {
-			System.out.print(fixedLengthString(Integer.toString(depth, 20),20));
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.print(fixedLengthString(Integer.toString((depth+fromDepth), 20),20));
 		}
 		
 		System.out.println();
@@ -208,7 +288,7 @@ public class Analyzer {
 			
 			System.out.print(fixedLengthString(type.toString(), 20));
 			
-			for (int depth = 0 ; depth <= untilDepth ; depth++) {
+			for (int depth = 0 ; depth < range ; depth++) {
 				System.out.print(fixedLengthString(Integer.toString(fDepth[type.ordinal()][depth]), 20));
 			}
 			
@@ -219,8 +299,8 @@ public class Analyzer {
 
 	private void displayWinsEqualDepth() {
 		
-		for (int depth = 0 ; depth <= untilDepth ; depth++) {
-			System.out.println("Wins with equal depth for BLACK and RED : "+depth+"\n");
+		for (int depth = 0 ; depth < range ; depth++) {
+			System.out.println("Wins with equal depth for BLACK and RED : "+(depth+fromDepth)+"\n");
 			
 			System.out.print(fixedLengthString("BLACK \\ RED", 15));
 			

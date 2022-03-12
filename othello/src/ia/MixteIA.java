@@ -53,7 +53,11 @@ public class MixteIA extends IA{
 				moyMinDist += minDist;
 			}
 			
-			moyMinDist /= played.size();
+			if (played.isEmpty()) {
+				moyMinDist = 7;
+			}else {
+				moyMinDist /= played.size();
+			}
 			
 			heuristique = possibilities - moyMinDist;
 		}else {

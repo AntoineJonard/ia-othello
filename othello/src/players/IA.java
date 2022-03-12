@@ -26,6 +26,11 @@ public abstract class IA extends Player {
 	
 	protected Type type;
 	
+	private int nbNodesGenerated = 0;
+	
+	private long averageTimeSpent = 0;
+	private int nbPlays = 0;
+	
 	public IA(int maxDepth) {
 		super();
 		this.maxDepth = maxDepth;
@@ -38,6 +43,8 @@ public abstract class IA extends Player {
 	@Override
 	public Frame play() {
 
+		long start = System.currentTimeMillis();
+		
 		List<Frame> playables = getSide() == Side.BLACK ? getGame().getBlackPlayables() : getGame().getRedPlayables();;
 		List<Node> nodes = new ArrayList<>();
 		
@@ -47,9 +54,16 @@ public abstract class IA extends Player {
 		
 		for (Frame f : playables) {
 			nodes.add(new Node(new Frame(f), 0));
+			nbNodesGenerated++;
 		}
 		
 		Node max = max(nodes,Integer.MAX_VALUE,getGame());
+		
+		long finish = System.currentTimeMillis();
+		
+		averageTimeSpent += finish-start;
+		
+		nbPlays++;
 		
 		return new Frame(State.EMPTY,max.getF().getI(),max.getF().getP());
 	}
@@ -67,6 +81,7 @@ public abstract class IA extends Player {
 							
 			for (Frame f : fictive.getSidePlayable(getSide())) {
 				n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
+				nbNodesGenerated++;
 			}
 			
 			if (n.getDepth() >= maxDepth || n.getChilds().isEmpty()) 
@@ -105,6 +120,7 @@ public abstract class IA extends Player {
 			
 			for (Frame f : fictive.getSidePlayable(getOpponentSide())) {
 				n.getChilds().add(new Node(new Frame(f),n.getDepth()+1));
+				nbNodesGenerated++;
 			}
 			
 			if (n.getDepth() >= maxDepth || n.getChilds().isEmpty()) 
@@ -133,4 +149,13 @@ public abstract class IA extends Player {
 	}
 	
 	public abstract float computeHeuristique(Game game);
+
+	public int getNbNodesGenerated() {
+		return nbNodesGenerated;
+	}
+
+	public long getAverageTimeSpent() {
+		return (long) (((double)averageTimeSpent)/nbPlays);
+	}
+	
 }
