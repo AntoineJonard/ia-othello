@@ -436,22 +436,26 @@ public class Game{
 		
 		if (trigger == State.BLACK) {
 			reverseFrame = toReverse -> {
+				redPlayed.remove(toReverse);
 				toReverse.reverse();
 				nbRedFrame--;
 				nbBlackFrame++;
 				List<Frame> neighbors = getFreeNeighbors(toReverse);
 				neighbors.forEach(neighbor -> blackPlayablesPos.remove(neighbor));
 				neighbors.forEach(neighbor -> addToPlayables(neighbor, redPlayablesPos));
+				blackPlayed.add(toReverse);
 				return null;
 			};
 		}else {
 			reverseFrame = toReverse -> {
+				blackPlayed.remove(toReverse);
 				toReverse.reverse();
 				nbRedFrame++;
 				nbBlackFrame--;
 				List<Frame> neighbors = getFreeNeighbors(toReverse);
 				neighbors.forEach(neighbor -> redPlayablesPos.remove(neighbor));
 				neighbors.forEach(neighbor -> addToPlayables(neighbor, blackPlayablesPos));
+				redPlayed.add(toReverse);
 				return null;
 			};
 		}

@@ -26,8 +26,11 @@ public class Analyzer {
 	
 	private int[][] fDepth;
 	
+	private long[][] timeDepth;
+	
 	private int nbGamesPlayed;
 	private int nbTotalGame;
+	private int[] nodesDepth;
 
 	public Analyzer(int untilDepth) {
 		super();
@@ -44,6 +47,8 @@ public class Analyzer {
 		this.winsEqualDepth = new Side[untilDepth+1][Type.values().length][Type.values().length];
 		iaTypeWins = new int [Type.values().length];
 		depthWins = new int[untilDepth+1];
+		nodesDepth = new int[untilDepth+1];
+		timeDepth = new long[Type.values().length][untilDepth+1];
 	}
 
 	public void analyze() {
