@@ -116,7 +116,7 @@ public class Analyzer {
 					
 					float percent = ((float) nbGamesPlayed)/nbTotalGame*100;
 					
-					System.out.println("Analyzing ... ("+percent+"% done)");
+					System.out.println(String.format("Analyzing ... (%02d% done)",percent));
 				}
 			}
 		}
