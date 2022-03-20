@@ -1,0 +1,29 @@
+500 Games per IA of depth 6
+
+Results
+_________
+
+IA Wins percent
+
+POSITIONNEL    |----------------------------------------------------------------------------> 75.6%
+MOBILITE       |-----------------------------------------------------------------------------------> 83.0%
+MIXTE          |---------------------------------------------------------------------------------------------> 92.799995%
+ABSOLU         |--------------------------------------------------------------------------------------> 85.6%
+_________
+
+Average time spent (secondes) for a choice for each type of IA
+
+IA type             Average time spent
+POSITIONNEL         00:291              
+MOBILITE            00:301              
+MIXTE               00:360              
+ABSOLU              00:457              
+_________
+
+Average nodes generated for each type of IA
+
+IA type             Average Nodes Generated
+POSITIONNEL         32755351            
+MOBILITE            17116543            
+MIXTE               23313878            
+ABSOLU              54973719  

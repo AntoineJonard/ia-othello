@@ -8,7 +8,7 @@ public class TestAnalyzer {
 		analyzer.displayResult();
 		*/
 		
-		RandomAnalyzer randomAnalyzer = new RandomAnalyzer(500, 3);
+		RandomAnalyzer randomAnalyzer = new RandomAnalyzer(500, 6);
 		randomAnalyzer.analyze();
 		randomAnalyzer.displayResult();
 
